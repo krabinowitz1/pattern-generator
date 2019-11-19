@@ -1,8 +1,42 @@
+docRef = app.activeDocument;
+translate_image();
+rotate_image();
+merge_layers();
+duplicate_layer();
+flipHorizontal();
 
-move_cm(10, 10);
+function flipHorizontal()
+{
+	docRef.activeLayer.resize(-100, undefined);
+}
+
+function duplicate_layer()
+{
+	docRef.activeLayer.duplicate();
+}
+
+function merge_layers()
+{
+	docRef.activeLayer = docRef.layers["Layer 0"];
+	docRef.activeLayer.remove();
+	docRef.mergeVisibleLayers();
+}
+
+function rotate_image()
+{
+	degree = Math.floor((Math.random() * 361) + 1);
+	docRef.activeLayer.rotate(degree, AnchorPosition.MIDDLECENTER);
+}
+
+function translate_image()
+{
+	xOffset = Math.floor((Math.random() * 8) + 1);
+	yOffset = Math.floor((Math.random() * 6) + 1);
+
+	move_cm(xOffset, yOffset);
+}
 
 function move_cm(x, y)
-
 {
 
     var old_units = app.preferences.rulerUnits;
@@ -44,7 +78,6 @@ function move_cm(x, y)
 }
 
 function move_px(x, y)
-
 {
 
     var old_units = app.preferences.rulerUnits;
